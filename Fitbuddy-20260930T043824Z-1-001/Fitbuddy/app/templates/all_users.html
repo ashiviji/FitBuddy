@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        FitBuddy | Admin
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', path='css/style.css') }}"
+    >
+
+</head>
+
+
+<body>
+
+
+<header class="topbar">
+
+    <div class="brand">
+        FitBuddy Admin
+    </div>
+
+
+    <nav>
+
+        <a href="/">
+            Home
+        </a>
+
+        <a href="/docs">
+            API Docs
+        </a>
+
+    </nav>
+
+</header>
+
+
+
+<main class="container">
+
+
+<section class="card">
+
+    <h1>
+        All Users
+    </h1>
+
+
+    {% if not users %}
+
+        <p>
+            No users have been created yet.
+        </p>
+
+    {% endif %}
+
+
+
+    {% for user in users %}
+
+
+    <article class="admin-user">
+
+
+        <div class="admin-head">
+
+
+            <div>
+
+                <h2>
+                    {{ user.username }}
+                </h2>
+
+                <p>
+
+                    {{ user.user_id }}
+
+                    ·
+
+                    {{ user.goal }}
+
+                    ·
+
+                    {{ user.intensity }}
+
+                </p>
+
+            </div>
+
+
+
+            <form
+                action="/delete-user/{{ user.user_id }}"
+                method="post"
+                onsubmit="return confirm('Delete this user?')"
+            >
+
+                <button
+                    class="danger"
+                    type="submit"
+                >
+                    Delete
+                </button>
+
+            </form>
+
+
+        </div>
+
+
+
+        <p>
+
+            <b>
+                Age:
+            </b>
+
+            {{ user.age }}
+
+            &nbsp;
+
+            <b>
+                Weight:
+            </b>
+
+            {{ user.weight }} kg
+
+        </p>
+
+
+
+        <details>
+
+            <summary>
+                Original Plan
+            </summary>
+
+            <pre>
+{{ user.original_plan or '—' }}
+            </pre>
+
+        </details>
+
+
+
+        <details>
+
+            <summary>
+                Updated Plan
+            </summary>
+
+            <pre>
+{{ user.updated_plan or 'No update yet' }}
+            </pre>
+
+        </details>
+
+
+
+        <details>
+
+            <summary>
+                Feedback
+            </summary>
+
+            <p>
+                {{ user.feedback or 'No feedback yet' }}
+            </p>
+
+        </details>
+
+
+    </article>
+
+
+    {% endfor %}
+
+
+</section>
+
+
+</main>
+
+
+</body>
+
+</html>

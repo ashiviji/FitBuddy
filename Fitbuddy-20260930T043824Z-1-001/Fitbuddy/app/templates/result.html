@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        FitBuddy | Your Plan
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', path='css/style.css') }}"
+    >
+
+</head>
+
+
+<body>
+
+
+<header class="topbar">
+
+    <div class="brand">
+        FitBuddy
+    </div>
+
+
+    <nav>
+
+        <a href="/">
+            New Plan
+        </a>
+
+        <a href="/view-all-users">
+            Admin View
+        </a>
+
+        <a href="/docs">
+            API Docs
+        </a>
+
+    </nav>
+
+</header>
+
+
+
+<main class="container">
+
+
+{% if message %}
+
+<div class="alert success">
+
+    {{ message }}
+
+</div>
+
+{% endif %}
+
+
+
+<section class="card profile">
+
+    <span class="badge">
+        PERSONALIZED RESULT
+    </span>
+
+
+    <h1>
+        Hello, {{ user.username }}!
+    </h1>
+
+
+    <div class="stats">
+
+
+        <div>
+
+            <b>
+                User ID
+            </b>
+
+            <span>
+                {{ user.user_id }}
+            </span>
+
+        </div>
+
+
+        <div>
+
+            <b>
+                Age
+            </b>
+
+            <span>
+                {{ user.age }}
+            </span>
+
+        </div>
+
+
+        <div>
+
+            <b>
+                Weight
+            </b>
+
+            <span>
+                {{ user.weight }} kg
+            </span>
+
+        </div>
+
+
+        <div>
+
+            <b>
+                Goal
+            </b>
+
+            <span>
+                {{ user.goal }}
+            </span>
+
+        </div>
+
+
+        <div>
+
+            <b>
+                Intensity
+            </b>
+
+            <span>
+                {{ user.intensity }}
+            </span>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<section class="card">
+
+    <h2>
+        7-Day Workout Plan
+    </h2>
+
+
+    <pre>{{ workout_plan }}</pre>
+
+</section>
+
+
+
+<section class="card tip">
+
+    <h2>
+        Nutrition / Recovery Tip
+    </h2>
+
+
+    <p>
+        {{ nutrition_tip }}
+    </p>
+
+</section>
+
+
+
+<section class="card">
+
+    <h2>
+        Refine With Feedback
+    </h2>
+
+
+    <form
+        action="/submit-feedback"
+        method="post"
+    >
+
+
+        <input
+            type="hidden"
+            name="user_id"
+            value="{{ user.user_id }}"
+        >
+
+
+        <label>
+
+            What would you like changed?
+
+            <textarea
+                name="feedback"
+                rows="5"
+                required
+                maxlength="2000"
+                placeholder="Example: add more recovery time"
+            ></textarea>
+
+        </label>
+
+
+        <button
+            type="submit"
+        >
+            Update Plan
+        </button>
+
+
+    </form>
+
+</section>
+
+
+
+<section class="card">
+
+    <h2>
+        Safety Note
+    </h2>
+
+
+    <p class="notice">
+
+        This is general wellness guidance.
+        It is not a diagnosis or substitute
+        for professional medical or nutrition advice.
+
+    </p>
+
+</section>
+
+
+</main>
+
+
+</body>
+
+</html>
